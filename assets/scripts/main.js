@@ -83,7 +83,7 @@ async function getRecipes() {
   //            you can call to either resolve the Promise or Reject it.
   /**************************/
   let recipesFetched = [];
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
 
     //if(somethingSuccesfulHappened) {
     //  const successObject = {
@@ -128,19 +128,18 @@ async function getRecipes() {
         //            if you have, then save the recipes to storage using the function
         //            we have provided. Then, pass the recipes array to the Promise's
         //            resolve() method.
-        if( i == RECIPE_URLS.length()) {
-          addRecipesToDocument(recipesFetched);
+        if( i == RECIPE_URLS.length - 1) {
+          saveRecipesToStorage(recipesFetched);
         }
 
 
       }
-    catch (error) {
-
-    }
-      // A10. TODO - Log any errors from catch using console.error
-      console.error(`Could not fetch all. Error message: ${error}`);
-      // A11. TODO - Pass any errors to the Promise's reject() function
-      reject(`not all recipes found! : ${value}`);
+      catch (error) {
+        // A10. TODO - Log any errors from catch using console.error
+        console.error(`Could not fetch all. Error message: ${error}`);
+        // A11. TODO - Pass any errors to the Promise's reject() function
+        reject(`not all recipes found! : ${value}`);
+      }
     }
   });
 }
